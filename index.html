@@ -537,7 +537,7 @@
             }
 
             applySurveyRecommendation();
-            showStep('step-checkout');
+            window.location.href = 'recommendations.html';
         }
 
         function prevSurveyQuestion() {
@@ -601,6 +601,18 @@
             document.getElementById('checkout-profile-badge').textContent = `Recommended profile: ${profile.name}`;
             document.getElementById('recommendation-copy').textContent = profile.checkoutCopy;
             document.getElementById('cart-total').textContent = `$${funnelState.basePrice + (funnelState.hasOrderBump ? funnelState.bumpPrice : 0)}.00`;
+
+            const recommendationData = {
+                profileName: profile.name,
+                checkoutCopy: profile.checkoutCopy,
+                dominant,
+                totals,
+                answers: Object.fromEntries(
+                    Object.entries(funnelState.surveyAnswers).map(([key, value]) => [key, { label: value.label, insight: value.insight }])
+                )
+            };
+            localStorage.setItem('waglyRecommendation', JSON.stringify(recommendationData));
+            return recommendationData;
         }
 
         function toggleOrderBump() {
@@ -638,6 +650,7 @@
             funnelState.surveyIndex = 0;
             funnelState.surveyAnswers = {};
             funnelState.profileName = 'Balanced Care Plan';
+            localStorage.removeItem('waglyRecommendation');
             document.getElementById('order-bump').checked = false;
             document.getElementById('bump-row').classList.add('hidden');
             document.getElementById('bump-row').classList.remove('flex');

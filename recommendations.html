@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wagly Recommendations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-200 text-slate-800">
+    <main class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+        <section class="rounded-3xl border border-violet-200 bg-white/90 p-6 shadow-xl sm:p-8">
+            <p class="mb-3 inline-flex rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-violet-700">Your Recommended Plan</p>
+            <h1 id="rec-profile" class="text-3xl font-black text-slate-900 sm:text-4xl">Loading recommendation...</h1>
+            <p id="rec-copy" class="mt-4 text-base leading-7 text-slate-600"></p>
+
+            <div class="mt-6 grid gap-4 sm:grid-cols-3">
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">Automation Score</p>
+                    <p id="score-automation" class="mt-2 text-2xl font-bold text-slate-900">0</p>
+                </div>
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">Care Score</p>
+                    <p id="score-care" class="mt-2 text-2xl font-bold text-slate-900">0</p>
+                </div>
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">Value Score</p>
+                    <p id="score-value" class="mt-2 text-2xl font-bold text-slate-900">0</p>
+                </div>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <h2 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">How You Answered</h2>
+                <div id="rec-answers" class="mt-3 grid gap-3"></div>
+            </div>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+                <a href="index.html" class="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">Back to Survey</a>
+                <a href="index.html#step-checkout" class="rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5">Continue to Funnel</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const recommendation = JSON.parse(localStorage.getItem('waglyRecommendation') || 'null');
+        const profileEl = document.getElementById('rec-profile');
+        const copyEl = document.getElementById('rec-copy');
+        const answersEl = document.getElementById('rec-answers');
+
+        if (!recommendation) {
+            profileEl.textContent = 'No recommendation found yet';
+            copyEl.textContent = 'Please complete the survey first so we can generate your personalized plan.';
+        } else {
+            profileEl.textContent = recommendation.profileName;
+            copyEl.textContent = recommendation.checkoutCopy;
+
+            document.getElementById('score-automation').textContent = recommendation.totals.automation;
+            document.getElementById('score-care').textContent = recommendation.totals.care;
+            document.getElementById('score-value').textContent = recommendation.totals.value;
+
+            const labels = {
+                petAge: 'Pet age',
+                schedule: 'Weekday schedule',
+                goal: 'Main goal',
+                experience: 'Experience with smart pet products'
+            };
+
+            answersEl.innerHTML = Object.entries(recommendation.answers)
+                .map(([key, answer]) => `<div class="rounded-xl border border-slate-200 bg-white p-3"><p class="text-sm font-semibold text-slate-800">${labels[key] || key}: ${answer.label}</p><p class="mt-1 text-sm text-slate-600">${answer.insight}</p></div>`)
+                .join('');
+        }
+    </script>
+</body>
+</html>
