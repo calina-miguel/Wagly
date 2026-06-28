@@ -686,7 +686,30 @@
         window.addEventListener('scroll', () => updateParallax(), { passive: true });
         window.addEventListener('resize', () => updateParallax());
         updateParallax();
+
+        function initStepFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const routeStep = params.get('step');
+            if (routeStep === 'checkout') {
+                applySurveyRecommendation();
+                showStep('step-checkout');
+                return;
+            }
+            if (routeStep === 'upsell') {
+                applySurveyRecommendation();
+                showStep('step-upsell');
+                return;
+            }
+            if (routeStep === 'thankyou') {
+                renderAnalytics();
+                showStep('step-thankyou');
+                return;
+            }
+            showStep('step-landing');
+        }
+
         renderSurveyQuestion();
+        initStepFromUrl();
 
         document.getElementById('bump-card').addEventListener('click', function (event) {
             if (event.target.tagName !== 'INPUT') {
