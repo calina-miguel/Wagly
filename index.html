@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Wagly Smart Pet Care - Premium pet feeding and care system." />
+    <title>Wagly | Premium Pet Care System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { color-scheme: light; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #4e3a2f;
+            background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 50%, #e5e7eb 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        .parallax-scene {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .parallax-layer {
+            position: absolute;
+            inset: -10%;
+            background-size: cover;
+            background-position: center;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+        .layer-sky {
+            background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 50%, #e5e7eb 100%);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Crect width='1600' height='1000' fill='none'/%3E%3Cg opacity='0.08' fill='%23c9a882'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150' transform='scale(1.2)'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(280 220) scale(1.3)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(1150 180) scale(1.1)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(420 420) scale(1.15)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(980 380) scale(1.25)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(600 600) scale(1.2)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(1300 550) scale(1.1)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(200 750) scale(1.3)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3Cg opacity='0.08' fill='%23c9a882' transform='translate(1450 750) scale(1.15)'%3E%3Cpath d='M120 150 Q110 140 120 130 Q130 140 120 150'/%3E%3Ccircle cx='130' cy='135' r='8'/%3E%3Ccircle cx='110' cy='145' r='6'/%3E%3Ccircle cx='115' cy='155' r='6'/%3E%3Ccircle cx='125' cy='155' r='6'/%3E%3C/g%3E%3C/svg%3E");
+            background-position: center;
+            background-repeat: repeat;
+            filter: none;
+        }
+        .layer-grass {
+            background: transparent;
+            opacity: 1;
+        }
+        .layer-dog {
+            background: transparent;
+            opacity: 1;
+        }
+        .glass {
+            background: rgba(255, 248, 239, 0.97);
+            border: 1px solid rgba(104, 73, 48, 0.16);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 55px rgba(112, 78, 49, 0.16);
+        }
+        .orb {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(40px);
+            opacity: 0.35;
+            pointer-events: none;
+            animation: drift 12s ease-in-out infinite alternate;
+        }
+        .floating-card { animation: float 5s ease-in-out infinite; }
+        header {
+            background: rgba(252, 247, 255, 0.95) !important;
+            border-color: #e8dcf8 !important;
+        }
+        header .text-slate-400 { color: #7a604f !important; }
+        header .text-slate-200 { color: #5f4638 !important; }
+        .text-slate-600 { color: #6c5341 !important; }
+        .text-slate-500 { color: #70564b !important; }
+        .text-slate-400 { color: #7a6358 !important; }
+        .text-slate-300 { color: #886f61 !important; }
+        .text-slate-200 { color: #95796f !important; }
+        .glass .text-white { color: #3d2f26 !important; }
+        .glass .text-slate-400, .glass .text-slate-500, .glass .text-slate-300, .glass .text-slate-200 { color: #6d4d3a !important; }
+        .glass .bg-slate-950\/70, .glass .bg-slate-950\/80, .glass .bg-slate-900, .glass .bg-slate-800 { background-color: rgba(255, 250, 244, 0.98) !important; }
+        .glass .border-white\/10 { border-color: rgba(123, 84, 52, 0.18) !important; }
+        .glass .bg-white\/5 { background-color: rgba(255, 252, 248, 0.98) !important; }
+        .glass .cta-violet,
+        .glass .cta-violet i {
+            color: #ffffff !important;
+        }
+        .glass .cta-violet .cta-icon {
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            fill: currentColor;
+            flex: none;
+        }
+        .survey-choice {
+            border: 1px solid rgba(123, 84, 52, 0.24);
+            background: rgba(255, 252, 248, 0.95);
+            color: #5d4638;
+        }
+        .survey-choice:hover {
+            border-color: rgba(139, 92, 246, 0.55);
+            background: rgba(245, 235, 255, 0.9);
+        }
+        .survey-choice.is-selected {
+            border-color: rgba(139, 92, 246, 0.95);
+            background: rgba(237, 223, 255, 0.95);
+            color: #4a2f68;
+            box-shadow: 0 10px 22px rgba(139, 92, 246, 0.2);
+        }
+        @keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(20px, -18px, 0) scale(1.06); } }
+        @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+        .backdrop-blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 35vh;
+            background: linear-gradient(180deg, rgba(243, 244, 246, 0.72) 0%, rgba(243, 244, 246, 0.45) 50%, rgba(243, 244, 246, 0) 100%);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 5;
+            pointer-events: none;
+        }
+        @media (max-width: 767px) {
+            .mobile-center,
+            .mobile-center * {
+                text-align: center !important;
+            }
+            .mobile-center .text-left {
+                text-align: center !important;
+            }
+            .mobile-center .max-w-7xl,
+            .mobile-center .max-w-6xl,
+            .mobile-center .max-w-3xl,
+            .mobile-center .max-w-2xl {
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            .mobile-center .grid {
+                justify-items: center !important;
+            }
+            .mobile-center .grid > * {
+                width: 100%;
+            }
+            .mobile-center .flex,
+            .mobile-center .inline-flex,
+            .mobile-center .justify-between,
+            .mobile-center .justify-start,
+            .mobile-center .justify-end {
+                justify-content: center !important;
+            }
+            .mobile-center .items-start,
+            .mobile-center .items-end {
+                align-items: center !important;
+            }
+            .mobile-center .justify-between {
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+            }
+            .mobile-center ul,
+            .mobile-center ol {
+                padding-left: 0 !important;
+                list-style-position: inside;
+            }
+            .mobile-center input,
+            .mobile-center textarea,
+            .mobile-center select {
+                text-align: center !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-700 overflow-x-hidden">
+    <div id="parallax-scene" class="parallax-scene" aria-hidden="true">
+        <div class="parallax-layer layer-sky"></div>
+        <div class="parallax-layer layer-grass"></div>
+        <div class="parallax-layer layer-dog"></div>
+    </div>
+
+    <div class="backdrop-blur-overlay" aria-hidden="true"></div>
+
+    <div class="orb left-[-4rem] top-16 h-48 w-48 bg-amber-300"></div>
+    <div class="orb right-[-3rem] top-24 h-44 w-44 bg-rose-300"></div>
+    <div class="orb bottom-20 left-1/3 h-40 w-40 bg-sky-200"></div>
+
+    <div class="mobile-center relative z-10 flex min-h-screen flex-col">
+        <header class="border-b border-violet-100/80 px-4 py-3 sm:px-6">
+            <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 text-sm text-[#6a4f3b]">
+                <div class="flex items-center gap-3">
+                    <span class="flex h-2.5 w-2.5 rounded-full bg-violet-400 animate-pulse"></span>
+                    <span>Campaign Status: <strong class="text-[#5f4477]">Active</strong></span>
+                </div>
+                <div class="flex flex-wrap items-center gap-4">
+                    <span>Average Conversion: <strong class="text-violet-600">14.2%</strong></span>
+                    <span>EPC: <strong class="text-fuchsia-600">$4.85</strong></span>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex flex-1 items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
+            <section id="step-landing" class="w-full max-w-6xl text-center">
+                <div class="mx-auto max-w-3xl">
+                    <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-1.5 text-sm font-semibold text-violet-700 shadow-sm">
+                        <span aria-hidden="true">📝</span>
+                        2-Minute Personalization Survey
+                    </div>
+                    <h1 class="text-4xl font-black leading-tight text-[#4b382d] sm:text-5xl lg:text-7xl">
+                        Build your perfect pet-care setup<br />
+                        <span class="text-violet-600">
+                            one answer at a time.
+                        </span>
+                    </h1>
+                    <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#6a4f3b] sm:text-xl">
+                        Answer a few quick questions and we will tailor a starter plan that matches your pet routine, schedule, and goals.
+                    </p>
+                </div>
+
+                <div class="mx-auto mt-10 grid max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                    <div class="glass rounded-3xl border border-white/10 p-4 shadow-2xl shadow-black/30">
+                        <div class="relative overflow-hidden rounded-[1.4rem] border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 p-6 text-left">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.22),transparent_45%)]"></div>
+                            <div class="relative">
+                                <div class="mb-4 flex items-center justify-between">
+                                    <span id="survey-step-count" class="text-sm font-semibold uppercase tracking-[0.24em] text-[#7a604f]">Question 1 of 4</span>
+                                    <span id="survey-progress-label" class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-700">25% Complete</span>
+                                </div>
+                                <div class="mb-5 h-2 w-full overflow-hidden rounded-full bg-white/15">
+                                    <div id="survey-progress-fill" class="h-full w-1/4 rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500" style="width: 25%;"></div>
+                                </div>
+                                <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+                                    <h2 id="survey-question" class="text-xl font-semibold text-[#4b382d]">How old is your pet?</h2>
+                                    <div id="survey-options" class="mt-4 grid gap-3"><button type="button" class="survey-choice is-selected w-full rounded-2xl p-4 text-left transition" onclick="selectSurveyOption('petAge', 'young')"><p class="font-semibold">Under 2 years</p><p class="mt-1 text-sm opacity-80">More frequent feeding support</p></button><button type="button" class="survey-choice w-full rounded-2xl p-4 text-left transition" onclick="selectSurveyOption('petAge', 'adult')"><p class="font-semibold">2 to 8 years</p><p class="mt-1 text-sm opacity-80">Stable daily routine</p></button><button type="button" class="survey-choice w-full rounded-2xl p-4 text-left transition" onclick="selectSurveyOption('petAge', 'senior')"><p class="font-semibold">9+ years</p><p class="mt-1 text-sm opacity-80">Consistency and comfort first</p></button></div>
+                                    <p id="survey-hint" class="mt-3 text-sm text-slate-600">Selected: More frequent feeding support</p>
+                                </div>
+                                <div class="mt-6 flex items-center justify-between gap-3">
+                                    <button id="btn-survey-back" onclick="prevSurveyQuestion()" class="rounded-full border border-violet-200 bg-white/90 px-5 py-3 text-sm font-semibold text-[#6a4f3b] transition-all duration-200 hover:bg-violet-50 opacity-50 cursor-not-allowed" disabled>
+                                        Back
+                                    </button>
+                                    <button id="btn-survey-next" onclick="nextSurveyQuestion()" class="cta-violet inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(139,92,246,0.24)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(192,132,252,0.28)]">
+                                        Next Question
+                                        <svg class="cta-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5.5 20 12l-6.5 6.5-1.4-1.4 4.1-4.1H4v-2h12.2l-4.1-4.1 1.4-1.4Z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass floating-card rounded-3xl border border-white/10 p-6 text-left shadow-2xl shadow-black/30">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 text-amber-300"><span aria-hidden="true">🧭</span></div>
+                            <div>
+                                <p class="font-semibold text-[#4b382d]">Your live survey profile</p>
+                                <p class="text-sm text-slate-600">We adapt your recommendation as you answer.</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-[#7a604f]">Routine Tempo</p>
+                                <p id="profile-tempo" class="mt-2 text-lg font-semibold text-[#4b382d]">Adaptive routine</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Primary Focus</p>
+                                <p id="profile-focus" class="mt-2 text-lg font-semibold text-[#4b382d]">Convenience and consistency</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Plan Fit</p>
+                                <p id="profile-budget" class="mt-2 text-lg font-semibold text-[#4b382d]">Automation-first starter fit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="step-checkout" class="hidden w-full max-w-6xl">
+                <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                    <div class="glass rounded-3xl border border-white/10 p-6 shadow-2xl shadow-black/30 sm:p-8">
+                        <div class="mb-6 flex items-center gap-3">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 text-amber-300">1</div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-white">Survey Complete: Secure Checkout</h2>
+                                <p id="checkout-profile-badge" class="text-sm text-slate-500">Recommended profile: Balanced Care Plan</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">Pet Parent Email</label>
+                                <input type="email" placeholder="Enter your best email" class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none ring-0 transition focus:border-amber-500" />
+                            </div>
+                            <div>
+                                <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">Payment</label>
+                                <div class="relative">
+                                    <input type="text" placeholder="Card number" class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 pr-14 text-white outline-none transition focus:border-amber-500" />
+                                    <div class="absolute right-4 top-3.5 flex gap-2 text-slate-500">
+                                        <span class="text-xs font-semibold">VISA</span>
+                                        <span class="text-xs font-semibold">MC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="bump-card" class="mt-6 flex cursor-pointer items-start gap-4 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 transition hover:bg-amber-500/15">
+                            <input id="order-bump" type="checkbox" class="mt-1 h-4 w-4 rounded border-slate-700 bg-slate-900 text-indigo-500 focus:ring-indigo-500" />
+                            <div>
+                                <div class="mb-1 inline-flex rounded-full bg-amber-400 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-slate-950">One-Time Offer</div>
+                                <h3 class="text-sm font-semibold text-white">Add the Treat & Tidy Starter Pack (+$19)</h3>
+                                <p class="mt-1 text-sm text-slate-500">A practical bundle for cleanup, treats, and happy daily routines.</p>
+                            </div>
+                        </div>
+                        <button onclick="processCheckout()" class="cta-violet mt-8 w-full rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 px-5 py-4 text-lg font-semibold text-white shadow-[0_12px_28px_rgba(139,92,246,0.2)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_32px_rgba(192,132,252,0.25)]">
+                            <svg class="cta-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 8V7a3.5 3.5 0 1 1 7 0v1h2a1 1 0 0 1 1 .9l1 10A2 2 0 0 1 17.5 21h-11A2 2 0 0 1 4.5 19l1-10a1 1 0 0 1 1-.9h2Zm2 0h3V7a1.5 1.5 0 0 0-3 0v1Z"/></svg>
+                            Reserve My Starter Kit
+                            <svg class="cta-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9h-1V7a4 4 0 1 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-7-2a2 2 0 1 1 4 0v2h-4V7Z"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="glass rounded-3xl border border-white/10 p-6 shadow-2xl shadow-black/30 sm:p-8">
+                        <h3 class="text-xl font-semibold text-white">Order Summary</h3>
+                        <p id="recommendation-copy" class="mt-2 text-sm text-slate-500">Based on your survey answers, this starter setup is your best fit.</p>
+                        <div class="mt-6 space-y-4">
+                            <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-4">
+                                <div>
+                                    <p class="font-semibold text-white">Wagly Smart Bowl Starter</p>
+                                    <p class="text-sm text-slate-500">Timed feeding and smart care reminders</p>
+                                </div>
+                                <span class="font-semibold text-white">$39.00</span>
+                            </div>
+                            <div id="bump-row" class="hidden items-center justify-between rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-300">
+                                <div>
+                                    <p class="font-semibold">Treat & Tidy Starter Pack</p>
+                                    <p class="text-sm text-amber-400/80">Exclusive add-on</p>
+                                </div>
+                                <span class="font-semibold">$19.00</span>
+                            </div>
+                            <div class="rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4">
+                                <div class="flex items-center justify-between text-lg font-semibold text-white">
+                                    <span>Total</span>
+                                    <span id="cart-total">$47.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 rounded-2xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-500">
+                            “Our dog now gets the right meals on time, and the setup looks beautiful in our kitchen.”
+                            <p class="mt-2 font-semibold text-slate-400">— Lena M., Happy Pet Parent</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="step-upsell" class="hidden w-full max-w-6xl">
+                <div class="glass rounded-3xl border border-white/10 p-6 shadow-2xl shadow-black/30 sm:p-8">
+                    <div class="mb-8 text-center">
+                        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-rose-400/30 bg-rose-400/10 px-3 py-1 text-sm font-medium text-rose-200"><span aria-hidden="true">💎</span> Upgrade Opportunity</div>
+                        <h2 class="text-3xl font-bold text-white sm:text-4xl">Upgrade the daily routine with the comfort bundle.</h2>
+                        <p class="mx-auto mt-3 max-w-2xl text-slate-400">Your starter order is almost complete. Add the Grooming Comfort Pack for softer routines, cleaner paws, and extra everyday delight.</p>
+                    </div>
+                    <div class="grid gap-6 lg:grid-cols-2">
+                        <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-6">
+                            <div class="mb-4 flex items-center gap-3">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 text-amber-300"><span aria-hidden="true">👥</span></div>
+                                <div>
+                                    <h3 class="font-semibold text-white">Grooming Comfort Pack</h3>
+                                    <p class="text-sm text-slate-500">For pet parents who want a calmer and cleaner routine every day.</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-3 text-sm text-slate-400">
+                                <li><span class="mr-2 text-amber-400">✔</span> Paw-safe grooming essentials</li>
+                                <li><span class="mr-2 text-amber-400">✔</span> Easy cleanup tools for busy mornings</li>
+                                <li><span class="mr-2 text-amber-400">✔</span> A calm routine that feels rewarding</li>
+                            </ul>
+                            <div class="mt-6 flex items-end justify-between">
+                                <div>
+                                    <p class="text-sm text-slate-500">Limited-time offer</p>
+                                    <p class="text-3xl font-semibold text-white">$79</p>
+                                </div>
+                                <button onclick="acceptUpsell(true)" class="rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_10px_24px_rgba(192,132,252,0.22)]">✨ Add Comfort Bundle</button>
+                            </div>
+                        </div>
+                        <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-6">
+                            <div class="mb-4 flex items-center gap-3">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800 text-slate-300"><span aria-hidden="true">✕</span></div>
+                                <div>
+                                    <h3 class="font-semibold text-white">No Thanks</h3>
+                                    <p class="text-sm text-slate-500">Continue with the core workflow only.</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-slate-500">Perfect if you want to keep the setup lean and stay focused on one product experience first.</p>
+                            <div class="mt-8 flex items-end justify-between">
+                                <div>
+                                    <p class="text-sm text-slate-500">Suggested next step</p>
+                                    <p class="text-2xl font-semibold text-white">Continue</p>
+                                </div>
+                                <button onclick="acceptUpsell(false)" class="rounded-full border border-violet-200 bg-white/80 px-5 py-3 text-sm font-semibold text-[#6a4f3b] transition-all duration-200 hover:bg-violet-50">🐶 Keep Current Plan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="step-thankyou" class="hidden w-full max-w-6xl">
+                <div class="glass rounded-3xl border border-white/10 p-6 shadow-2xl shadow-black/30 sm:p-8">
+                    <div class="mb-8 text-center">
+                        <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-300"><span aria-hidden="true">✅</span> Order Confirmed</div>
+                        <h2 class="text-3xl font-bold text-white sm:text-4xl">Your order has been completed successfully.</h2>
+                        <p class="mx-auto mt-3 max-w-2xl text-slate-400">Thank you for choosing Wagly. Your premium pet care system is on its way.</p>
+                    </div>
+                    <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                        <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-6">
+                            <div class="mb-6 grid gap-4 sm:grid-cols-3">
+                                <div class="rounded-2xl border border-white/10 bg-white/5 p-4"><p class="text-sm text-slate-500">Base Offer</p><p id="metric-base" class="mt-2 text-2xl font-semibold text-white">$39.00</p></div>
+                                <div class="rounded-2xl border border-white/10 bg-white/5 p-4"><p class="text-sm text-slate-500">Upsell</p><p id="metric-upsell" class="mt-2 text-2xl font-semibold text-white">$0.00</p></div>
+                                <div class="rounded-2xl border border-white/10 bg-white/5 p-4"><p class="text-sm text-slate-500">Projected LTV</p><p id="metric-ltv" class="mt-2 text-2xl font-semibold text-white">$39.00</p></div>
+                            </div>
+                            <div class="space-y-3 text-sm text-slate-400">
+                                <div class="rounded-2xl border border-white/10 bg-white/5 p-4"><p id="stat-bump" class="font-semibold text-white">Order Bump Attain: Declined</p></div>
+                                <div class="rounded-2xl border border-white/10 bg-white/5 p-4"><p id="stat-upsell" class="font-semibold text-white">Decision Outcome: Declined</p></div>
+                            </div>
+                        </div>
+                        <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-amber-900/60 to-rose-900/50 p-6">
+                            <h3 class="text-xl font-semibold text-white">What's Next</h3>
+                            <p class="mt-3 text-sm leading-7 text-slate-300">Check your email for shipping details, installation guides, and exclusive pet parent tips.</p>
+                            <button onclick="resetFunnel()" class="mt-6 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#6a4f3b] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">🔁 Place Another Order</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const surveyQuestions = [
+            {
+                key: 'petAge',
+                question: 'How old is your pet?',
+                options: [
+                    { value: 'young', label: 'Under 2 years', insight: 'More frequent feeding support', score: { automation: 1, care: 1, value: 0 } },
+                    { value: 'adult', label: '2 to 8 years', insight: 'Stable daily routine', score: { automation: 2, care: 1, value: 1 } },
+                    { value: 'senior', label: '9+ years', insight: 'Consistency and comfort first', score: { automation: 1, care: 2, value: 1 } }
+                ]
+            },
+            {
+                key: 'schedule',
+                question: 'What does your weekday schedule look like?',
+                options: [
+                    { value: 'always-home', label: 'Mostly home', insight: 'Hands-on routine', score: { automation: 0, care: 2, value: 1 } },
+                    { value: 'hybrid', label: 'Hybrid days', insight: 'Needs reliable timing', score: { automation: 2, care: 1, value: 1 } },
+                    { value: 'busy', label: 'Very busy / often out', insight: 'Automation is essential', score: { automation: 3, care: 0, value: 1 } }
+                ]
+            },
+            {
+                key: 'goal',
+                question: 'What matters most right now?',
+                options: [
+                    { value: 'calm', label: 'Calmer daily routine', insight: 'Stress-free mornings and evenings', score: { automation: 2, care: 1, value: 0 } },
+                    { value: 'health', label: 'Better feeding consistency', insight: 'Trackable habits and portions', score: { automation: 1, care: 3, value: 0 } },
+                    { value: 'budget', label: 'Best value starter option', insight: 'Low-friction first step', score: { automation: 0, care: 1, value: 3 } }
+                ]
+            },
+            {
+                key: 'experience',
+                question: 'How familiar are you with smart pet products?',
+                options: [
+                    { value: 'new', label: 'Brand new to it', insight: 'Simple setup preferred', score: { automation: 1, care: 1, value: 2 } },
+                    { value: 'some', label: 'Tried a few tools', insight: 'Ready for optimized routine', score: { automation: 2, care: 1, value: 1 } },
+                    { value: 'advanced', label: 'Very comfortable with tech', insight: 'Feature-rich setup', score: { automation: 2, care: 2, value: 0 } }
+                ]
+            }
+        ];
+
+        const funnelState = {
+            basePrice: 39,
+            bumpPrice: 19,
+            upsellPrice: 79,
+            hasOrderBump: false,
+            hasUpsell: false,
+            surveyIndex: 0,
+            surveyAnswers: { petAge: surveyQuestions[0].options[0] },
+            profileName: 'Balanced Care Plan'
+        };
+
+        function showStep(stepId) {
+            ['step-landing', 'step-checkout', 'step-upsell', 'step-thankyou'].forEach((id) => document.getElementById(id).classList.add('hidden'));
+            document.getElementById(stepId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToStep(stepId) { showStep(stepId); }
+
+        function renderSurveyQuestion() {
+            const current = surveyQuestions[funnelState.surveyIndex];
+            const total = surveyQuestions.length;
+            const answeredCount = Object.keys(funnelState.surveyAnswers).length;
+            const percent = Math.round(((funnelState.surveyIndex + 1) / total) * 100);
+            const selectedValue = funnelState.surveyAnswers[current.key]?.value;
+
+            document.getElementById('survey-step-count').textContent = `Question ${funnelState.surveyIndex + 1} of ${total}`;
+            document.getElementById('survey-progress-label').textContent = `${percent}% Complete`;
+            document.getElementById('survey-progress-fill').style.width = `${percent}%`;
+            document.getElementById('survey-question').textContent = current.question;
+            document.getElementById('survey-hint').textContent = selectedValue ? `Selected: ${funnelState.surveyAnswers[current.key].insight}` : 'Choose one answer to continue.';
+
+            const optionsEl = document.getElementById('survey-options');
+            optionsEl.innerHTML = current.options.map((option) => {
+                const selected = selectedValue === option.value ? 'is-selected' : '';
+                return `<button type="button" class="survey-choice ${selected} w-full rounded-2xl p-4 text-left transition" onclick="selectSurveyOption('${current.key}', '${option.value}')"><p class="font-semibold">${option.label}</p><p class="mt-1 text-sm opacity-80">${option.insight}</p></button>`;
+            }).join('');
+
+            const backBtn = document.getElementById('btn-survey-back');
+            backBtn.disabled = funnelState.surveyIndex === 0;
+            backBtn.classList.toggle('opacity-50', backBtn.disabled);
+            backBtn.classList.toggle('cursor-not-allowed', backBtn.disabled);
+
+            const nextBtn = document.getElementById('btn-survey-next');
+            nextBtn.innerHTML = funnelState.surveyIndex === total - 1
+                ? 'See My Recommendation <svg class="cta-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5.5 20 12l-6.5 6.5-1.4-1.4 4.1-4.1H4v-2h12.2l-4.1-4.1 1.4-1.4Z"/></svg>'
+                : 'Next Question <svg class="cta-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 5.5 20 12l-6.5 6.5-1.4-1.4 4.1-4.1H4v-2h12.2l-4.1-4.1 1.4-1.4Z"/></svg>';
+            nextBtn.classList.toggle('opacity-60', !selectedValue);
+
+            document.getElementById('profile-tempo').textContent = answeredCount >= 1 ? 'Adaptive routine' : 'Balanced routine';
+            updateProfilePreview();
+        }
+
+        function selectSurveyOption(questionKey, optionValue) {
+            const question = surveyQuestions.find((q) => q.key === questionKey);
+            const selected = question.options.find((opt) => opt.value === optionValue);
+            funnelState.surveyAnswers[questionKey] = selected;
+            renderSurveyQuestion();
+        }
+
+        function nextSurveyQuestion() {
+            const current = surveyQuestions[funnelState.surveyIndex];
+            if (!funnelState.surveyAnswers[current.key]) return;
+
+            if (funnelState.surveyIndex < surveyQuestions.length - 1) {
+                funnelState.surveyIndex += 1;
+                renderSurveyQuestion();
+                return;
+            }
+
+            applySurveyRecommendation();
+            showStep('step-checkout');
+        }
+
+        function prevSurveyQuestion() {
+            if (funnelState.surveyIndex === 0) return;
+            funnelState.surveyIndex -= 1;
+            renderSurveyQuestion();
+        }
+
+        function getSurveyScore() {
+            const totals = { automation: 0, care: 0, value: 0 };
+            Object.values(funnelState.surveyAnswers).forEach((answer) => {
+                totals.automation += answer.score.automation;
+                totals.care += answer.score.care;
+                totals.value += answer.score.value;
+            });
+            return totals;
+        }
+
+        function updateProfilePreview() {
+            const totals = getSurveyScore();
+            const entries = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+            const dominant = entries[0][0];
+
+            const focusMap = {
+                automation: 'Convenience and consistency',
+                care: 'Health-focused feeding rhythm',
+                value: 'Smart value and simplicity'
+            };
+            const budgetMap = {
+                automation: 'Automation-first starter fit',
+                care: 'Precision care starter fit',
+                value: 'Budget-friendly starter fit'
+            };
+
+            document.getElementById('profile-focus').textContent = focusMap[dominant];
+            document.getElementById('profile-budget').textContent = budgetMap[dominant];
+        }
+
+        function applySurveyRecommendation() {
+            const totals = getSurveyScore();
+            const entries = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+            const dominant = entries[0][0];
+
+            const profileMap = {
+                automation: {
+                    name: 'Auto-Pilot Care Plan',
+                    checkoutCopy: 'Based on your survey answers, this setup prioritizes dependable timed feeding for busy schedules.'
+                },
+                care: {
+                    name: 'Precision Wellness Plan',
+                    checkoutCopy: 'Based on your survey answers, this setup emphasizes consistency and healthier feeding habits.'
+                },
+                value: {
+                    name: 'Smart Starter Value Plan',
+                    checkoutCopy: 'Based on your survey answers, this setup gives you the best value while keeping routines reliable.'
+                }
+            };
+
+            const profile = profileMap[dominant];
+            funnelState.profileName = profile.name;
+            document.getElementById('checkout-profile-badge').textContent = `Recommended profile: ${profile.name}`;
+            document.getElementById('recommendation-copy').textContent = profile.checkoutCopy;
+            document.getElementById('cart-total').textContent = `$${funnelState.basePrice + (funnelState.hasOrderBump ? funnelState.bumpPrice : 0)}.00`;
+        }
+
+        function toggleOrderBump() {
+            const checkbox = document.getElementById('order-bump');
+            const bumpRow = document.getElementById('bump-row');
+            const cartTotal = document.getElementById('cart-total');
+            funnelState.hasOrderBump = checkbox.checked;
+            bumpRow.classList.toggle('hidden', !checkbox.checked);
+            bumpRow.classList.toggle('flex', checkbox.checked);
+            cartTotal.textContent = `$${funnelState.basePrice + (funnelState.hasOrderBump ? funnelState.bumpPrice : 0)}.00`;
+        }
+
+        function processCheckout() { showStep('step-upsell'); }
+
+        function acceptUpsell(chosen) {
+            funnelState.hasUpsell = chosen;
+            renderAnalytics();
+            showStep('step-thankyou');
+        }
+
+        function renderAnalytics() {
+            const base = funnelState.basePrice + (funnelState.hasOrderBump ? funnelState.bumpPrice : 0);
+            const upsell = funnelState.hasUpsell ? funnelState.upsellPrice : 0;
+            const ltv = base + upsell;
+            document.getElementById('metric-base').textContent = `$${base}.00`;
+            document.getElementById('metric-upsell').textContent = `$${upsell}.00`;
+            document.getElementById('metric-ltv').textContent = `$${ltv}.00`;
+            document.getElementById('stat-bump').textContent = funnelState.hasOrderBump ? 'Order Bump Attain: Accepted (+$19)' : 'Order Bump Attain: Declined';
+            document.getElementById('stat-upsell').textContent = funnelState.hasUpsell ? 'Decision Outcome: Upgraded (+$79)' : 'Decision Outcome: Declined';
+        }
+
+        function resetFunnel() {
+            funnelState.hasOrderBump = false;
+            funnelState.hasUpsell = false;
+            funnelState.surveyIndex = 0;
+            funnelState.surveyAnswers = {};
+            funnelState.profileName = 'Balanced Care Plan';
+            document.getElementById('order-bump').checked = false;
+            document.getElementById('bump-row').classList.add('hidden');
+            document.getElementById('bump-row').classList.remove('flex');
+            document.getElementById('cart-total').textContent = '$39.00';
+            document.getElementById('checkout-profile-badge').textContent = 'Recommended profile: Balanced Care Plan';
+            document.getElementById('recommendation-copy').textContent = 'Based on your survey answers, this starter setup is your best fit.';
+            renderSurveyQuestion();
+            showStep('step-landing');
+        }
+        const parallaxScene = document.getElementById('parallax-scene');
+        const parallaxLayers = Array.from(document.querySelectorAll('.parallax-layer'));
+        let parallaxFrame;
+
+        function updateParallax(event) {
+            if (parallaxFrame) cancelAnimationFrame(parallaxFrame);
+            parallaxFrame = requestAnimationFrame(() => {
+                const pointerX = event?.clientX ?? window.innerWidth / 2;
+                const pointerY = event?.clientY ?? window.innerHeight / 2;
+                const xRatio = (pointerX / window.innerWidth) - 0.5;
+                const yRatio = (pointerY / window.innerHeight) - 0.5;
+                const scrollRatio = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+
+                parallaxLayers.forEach((layer, index) => {
+                    const depth = (index + 1) * 14;
+                    const offsetX = xRatio * depth * 0.9;
+                    const offsetY = (yRatio * depth * 0.35) - (scrollRatio * depth * 2.4);
+                    layer.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(1.05)`;
+                });
+            });
+        }
+
+        window.addEventListener('pointermove', updateParallax, { passive: true });
+        window.addEventListener('scroll', () => updateParallax(), { passive: true });
+        window.addEventListener('resize', () => updateParallax());
+        updateParallax();
+        renderSurveyQuestion();
+
+        document.getElementById('bump-card').addEventListener('click', function (event) {
+            if (event.target.tagName !== 'INPUT') {
+                document.getElementById('order-bump').checked = !document.getElementById('order-bump').checked;
+                toggleOrderBump();
+            }
+        });
+    </script>
+</body>
+</html>
