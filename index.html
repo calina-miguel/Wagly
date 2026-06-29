@@ -488,6 +488,10 @@
         function renderSurveyQuestion() {
             const current = surveyQuestions[funnelState.surveyIndex];
             const total = surveyQuestions.length;
+            if (!funnelState.surveyAnswers[current.key]) {
+                funnelState.surveyAnswers[current.key] = current.options[0];
+            }
+
             const answeredCount = Object.keys(funnelState.surveyAnswers).length;
             const percent = Math.round(((funnelState.surveyIndex + 1) / total) * 100);
             const selectedValue = funnelState.surveyAnswers[current.key]?.value;
