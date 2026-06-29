@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BEC Integrated Solutions | Wireless Nurse Call Survey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            color-scheme: light;
+            --bec-navy: #0b1f3a;
+            --bec-blue: #0f4c81;
+            --bec-red: #d2232a;
+            --bec-red-soft: #f8d7d9;
+            --bec-gold: #f5b342;
+            --bec-slate: #e9eef5;
+            --bec-ink: #10253d;
+            --bec-text: #2d3d52;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--bec-text);
+            background:
+                radial-gradient(circle at top left, rgba(15, 76, 129, 0.20), transparent 32%),
+                radial-gradient(circle at top right, rgba(210, 35, 42, 0.12), transparent 28%),
+                linear-gradient(135deg, #f6f9fd 0%, #eef3f8 45%, #ffffff 100%);
+        }
+        .shell {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        .gridwash {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.28;
+            background-image:
+                linear-gradient(rgba(11,31,58,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(11,31,58,0.06) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+        }
+        .orb {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(34px);
+            opacity: 0.48;
+            pointer-events: none;
+            animation: float 12s ease-in-out infinite alternate;
+        }
+        .orb-a { background: rgba(15, 76, 129, 0.36); }
+        .orb-b { background: rgba(210, 35, 42, 0.22); }
+        .orb-c { background: rgba(245, 179, 66, 0.26); }
+        .panel {
+            background: rgba(255,255,255,0.88);
+            border: 1px solid rgba(16, 37, 61, 0.10);
+            box-shadow: 0 28px 60px rgba(11,31,58,0.12);
+            backdrop-filter: blur(18px);
+        }
+        .hero-chip {
+            background: rgba(15, 76, 129, 0.08);
+            color: var(--bec-blue);
+            border: 1px solid rgba(15, 76, 129, 0.16);
+        }
+        .question-card {
+            background: linear-gradient(180deg, rgba(11,31,58,0.98), rgba(11,31,58,0.92));
+            color: #fff;
+        }
+        .option {
+            border: 1px solid rgba(15, 76, 129, 0.15);
+            background: rgba(255,255,255,0.94);
+            color: var(--bec-text);
+            transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+        .option:hover {
+            transform: translateY(-1px);
+            border-color: rgba(15, 76, 129, 0.42);
+            box-shadow: 0 14px 28px rgba(11,31,58,0.08);
+        }
+        .option.is-selected {
+            border-color: rgba(210, 35, 42, 0.68);
+            background: linear-gradient(180deg, rgba(248,215,217,0.92), rgba(255,255,255,0.98));
+            box-shadow: 0 16px 30px rgba(210,35,42,0.10);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, var(--bec-blue), var(--bec-red));
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(11,31,58,0.22);
+        }
+        .btn-primary:hover { transform: translateY(-1px); }
+        .btn-secondary {
+            background: rgba(255,255,255,0.94);
+            border: 1px solid rgba(15, 76, 129, 0.18);
+            color: var(--bec-blue);
+        }
+        .stat {
+            background: rgba(255,255,255,0.82);
+            border: 1px solid rgba(11,31,58,0.08);
+        }
+        .accent-line { height: 4px; border-radius: 999px; background: linear-gradient(90deg, var(--bec-blue), var(--bec-red), var(--bec-gold)); }
+        .muted { color: #526476; }
+        .section-title { color: var(--bec-ink); }
+        .label { color: #5d6f84; }
+        .bg-card { background: rgba(255,255,255,0.92); }
+        .table-wrap { overflow-x: auto; }
+        .compare-table {
+            width: 100%; border-collapse: collapse; min-width: 720px;
+        }
+        .compare-table th, .compare-table td {
+            padding: 14px 16px; border-bottom: 1px solid rgba(15, 76, 129, 0.10); vertical-align: top; text-align: left;
+        }
+        .compare-table th {
+            background: rgba(15, 76, 129, 0.06);
+            color: var(--bec-ink);
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        @keyframes float { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(18px,-18px,0) scale(1.06); } }
+        @media (max-width: 767px) {
+            .mobile-center, .mobile-center * { text-align: center !important; }
+            .mobile-center .flex, .mobile-center .inline-flex, .mobile-center .justify-between, .mobile-center .justify-start, .mobile-center .justify-end { justify-content: center !important; }
+            .mobile-center .items-start, .mobile-center .items-end { align-items: center !important; }
+            .mobile-center .grid { justify-items: center !important; }
+            .mobile-center .grid > * { width: 100%; }
+            .mobile-center .compare-table th, .mobile-center .compare-table td { text-align: center !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell mobile-center">
+        <div class="gridwash" aria-hidden="true"></div>
+        <div class="orb orb-a left-[-3rem] top-10 h-40 w-40"></div>
+        <div class="orb orb-b right-[-2rem] top-32 h-52 w-52"></div>
+        <div class="orb orb-c bottom-16 left-1/3 h-44 w-44"></div>
+
+        <header class="relative z-10 border-b border-slate-200 bg-white/90 px-4 py-4 backdrop-blur-sm sm:px-6">
+            <div class="mx-auto flex max-w-7xl items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--bec-blue),var(--bec-red))] text-white font-black">B</div>
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">BEC Integrated Solutions</p>
+                        <h1 class="text-lg font-extrabold text-[var(--bec-ink)] sm:text-xl">Wireless Nurse Call Survey</h1>
+                    </div>
+                </div>
+                <div class="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 sm:block">Made in the USA · UL1069 options available</div>
+            </div>
+        </header>
+
+        <main class="relative z-10 mx-auto flex min-h-[calc(100vh-84px)] max-w-7xl items-center px-4 py-8 sm:px-6 lg:px-8">
+            <section id="step-landing" class="w-full">
+                <div class="grid gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch">
+                    <div class="panel rounded-[2rem] p-6 sm:p-8 lg:p-10">
+                        <span class="hero-chip inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold">Wireless Nurse Call Kits · Small Systems</span>
+                        <div class="mt-5 max-w-3xl">
+                            <h2 class="text-4xl font-black leading-tight text-[var(--bec-ink)] sm:text-5xl lg:text-6xl">Find the right wireless nurse call setup for your facility.</h2>
+                            <p class="mt-5 text-lg leading-8 muted sm:text-xl">Answer a few questions and get a recommendation aligned with your facility type, coverage needs, and support goals. Built around BEC Integrated Solutions' wireless nurse call systems, pendants, desk consoles, wanderguard options, and UL1069-ready solutions.</p>
+                        </div>
+                        <div class="mt-7 grid gap-4 sm:grid-cols-3">
+                            <div class="stat rounded-2xl p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] label">Trusted by</p>
+                                <p class="mt-2 text-xl font-bold text-[var(--bec-ink)]">2,500+ facilities</p>
+                            </div>
+                            <div class="stat rounded-2xl p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] label">Core focus</p>
+                                <p class="mt-2 text-xl font-bold text-[var(--bec-ink)]">Safety & response</p>
+                            </div>
+                            <div class="stat rounded-2xl p-4">
+                                <p class="text-xs font-semibold uppercase tracking-[0.18em] label">System types</p>
+                                <p class="mt-2 text-xl font-bold text-[var(--bec-ink)]">MV200 · MV500 · PC</p>
+                            </div>
+                        </div>
+                        <div class="mt-7 flex flex-wrap gap-3">
+                            <a href="#survey" class="btn-primary rounded-full px-6 py-3 text-sm font-bold">Get Answers or a Quote</a>
+                            <a href="#compare" class="btn-secondary rounded-full px-6 py-3 text-sm font-bold">Compare Systems</a>
+                        </div>
+                    </div>
+
+                    <div class="panel rounded-[2rem] p-6 sm:p-8 lg:p-10">
+                        <div class="accent-line"></div>
+                        <div class="mt-6 rounded-[1.75rem] bg-gradient-to-br from-[var(--bec-navy)] to-[#173c69] p-6 text-white shadow-xl">
+                            <p class="text-xs font-bold uppercase tracking-[0.24em] text-sky-200/90">Why facilities choose BEC</p>
+                            <ul class="mt-5 space-y-3 text-sm leading-7 text-slate-100">
+                                <li>• Pre-programmed systems with no recurring software costs</li>
+                                <li>• Flexible solutions for assisted living, nursing homes, and memory care</li>
+                                <li>• USA-made hardware with long-term support</li>
+                                <li>• Expandable platforms built to grow with your facility</li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 rounded-[1.75rem] border border-slate-200 bg-white p-5">
+                            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Featured products in this funnel</p>
+                            <div class="mt-4 grid gap-3 text-sm text-slate-700">
+                                <div class="rounded-2xl bg-slate-50 px-4 py-3">MV200 Wireless Nurse Call Kits</div>
+                                <div class="rounded-2xl bg-slate-50 px-4 py-3">MV500 Touchscreen Console</div>
+                                <div class="rounded-2xl bg-slate-50 px-4 py-3">WanderGuard & UL1069 Options</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="survey" class="hidden w-full">
+                <div class="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+                    <div class="panel rounded-[2rem] p-4 sm:p-6 lg:p-8">
+                        <div class="question-card overflow-hidden rounded-[1.6rem] p-6 sm:p-7">
+                            <div class="flex items-center justify-between gap-3">
+                                <p id="question-count" class="text-sm font-bold uppercase tracking-[0.28em] text-sky-200/90">Question 1 of 4</p>
+                                <span id="progress-pill" class="rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white">25% Complete</span>
+                            </div>
+                            <div class="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
+                                <div id="progress-fill" class="h-full rounded-full bg-[linear-gradient(90deg,var(--bec-gold),#ffffff,var(--bec-red))]" style="width:25%"></div>
+                            </div>
+                            <div class="mt-6 rounded-[1.5rem] bg-white/96 p-5 text-[var(--bec-ink)] shadow-lg">
+                                <h3 id="question-title" class="text-2xl font-extrabold sm:text-3xl">What type of facility are you planning for?</h3>
+                                <div id="options" class="mt-4 grid gap-3"></div>
+                                <p id="question-helper" class="mt-4 text-sm text-slate-500">Choose one answer to continue.</p>
+                            </div>
+                            <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
+                                <button id="back-btn" class="btn-secondary rounded-full px-5 py-3 text-sm font-bold opacity-50" disabled>Back</button>
+                                <button id="next-btn" class="btn-primary rounded-full px-6 py-3 text-sm font-bold">See My Recommendation →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel rounded-[2rem] p-6 sm:p-8 lg:p-10">
+                        <p class="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">Live profile</p>
+                        <h4 id="profile-title" class="mt-3 text-3xl font-black text-[var(--bec-ink)]">Balanced wireless system</h4>
+                        <p id="profile-copy" class="mt-4 text-base leading-7 muted">A recommendation preview will update as you answer.</p>
+                        <div class="mt-6 grid gap-4">
+                            <div class="stat rounded-2xl p-4">
+                                <p class="label text-xs font-semibold uppercase tracking-[0.18em]">Facility fit</p>
+                                <p id="profile-facility" class="mt-2 text-xl font-bold text-[var(--bec-ink)]">Assisted living / senior care</p>
+                            </div>
+                            <div class="stat rounded-2xl p-4">
+                                <p class="label text-xs font-semibold uppercase tracking-[0.18em]">Priority</p>
+                                <p id="profile-priority" class="mt-2 text-xl font-bold text-[var(--bec-ink)]">Expandability & support</p>
+                            </div>
+                            <div class="stat rounded-2xl p-4">
+                                <p class="label text-xs font-semibold uppercase tracking-[0.18em]">System suggestion</p>
+                                <p id="profile-system" class="mt-2 text-xl font-bold text-[var(--bec-ink)]">MV200 Wireless Nurse Call Kits</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 rounded-[1.4rem] border border-slate-200 bg-slate-50 p-5">
+                            <p class="text-sm leading-7 muted">Designed for facilities that want a reliable, flexible and affordable wireless nurse call system with pendants, push buttons, desk consoles, wanderguard integration, and UL1069-ready options.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="compare" class="hidden w-full">
+                <div class="panel rounded-[2rem] p-6 sm:p-8 lg:p-10">
+                    <div class="flex flex-col gap-3 text-center">
+                        <p class="text-xs font-bold uppercase tracking-[0.28em] text-slate-500">Comparison</p>
+                        <h3 class="text-3xl font-black text-[var(--bec-ink)] sm:text-4xl">Wireless vs. Wired: what matters most?</h3>
+                        <p class="mx-auto max-w-3xl text-base leading-7 muted">Use the survey result to guide a practical recommendation, then review the decision framework below to see why wireless systems are often the better fit for retrofits and scalable facilities.</p>
+                    </div>
+                    <div class="table-wrap mt-8 rounded-[1.5rem] border border-slate-200 bg-white">
+                        <table class="compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Wireless Nurse Call</th>
+                                    <th>Wired Nurse Call</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Installation</td><td>Minimal wiring, easier retrofits, faster deployment.</td><td>Extensive wiring, better for new construction.</td></tr>
+                                <tr><td>Cost</td><td>Lower upfront installation costs.</td><td>Higher labor and material costs.</td></tr>
+                                <tr><td>Flexibility</td><td>Easier to expand and reconfigure.</td><td>Less flexible once installed.</td></tr>
+                                <tr><td>Maintenance</td><td>Battery replacement and periodic checks.</td><td>Hardwired repairs may require wall access.</td></tr>
+                                <tr><td>Scalability</td><td>Scales with growth and changing needs.</td><td>Requires added infrastructure to grow.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+                        <button id="show-survey-btn" class="btn-primary rounded-full px-6 py-3 text-sm font-bold">Take Survey</button>
+                        <a href="#results" class="btn-secondary rounded-full px-6 py-3 text-sm font-bold">Jump to Recommendation</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="results" class="hidden w-full">
+                <div class="panel rounded-[2rem] p-6 sm:p-8 lg:p-10">
+                    <div class="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-[0.28em] text-slate-500">Recommendation</p>
+                            <h3 id="result-title" class="mt-3 text-3xl font-black text-[var(--bec-ink)] sm:text-4xl">Your ideal system will appear here.</h3>
+                            <p id="result-copy" class="mt-4 text-base leading-7 muted"></p>
+                            <div class="mt-6 grid gap-4 sm:grid-cols-3">
+                                <div class="stat rounded-2xl p-4"><p class="label text-xs font-semibold uppercase tracking-[0.18em]">Score</p><p id="score-a" class="mt-2 text-2xl font-black text-[var(--bec-ink)]">0</p></div>
+                                <div class="stat rounded-2xl p-4"><p class="label text-xs font-semibold uppercase tracking-[0.18em]">Score</p><p id="score-b" class="mt-2 text-2xl font-black text-[var(--bec-ink)]">0</p></div>
+                                <div class="stat rounded-2xl p-4"><p class="label text-xs font-semibold uppercase tracking-[0.18em]">Score</p><p id="score-c" class="mt-2 text-2xl font-black text-[var(--bec-ink)]">0</p></div>
+                            </div>
+                        </div>
+                        <div class="rounded-[1.75rem] bg-gradient-to-br from-[var(--bec-navy)] to-[#173c69] p-6 text-white shadow-xl">
+                            <p class="text-xs font-bold uppercase tracking-[0.24em] text-sky-200/90">Next step</p>
+                            <h4 id="quote-title" class="mt-3 text-2xl font-black">Request a quote or product selection support</h4>
+                            <p class="mt-4 text-sm leading-7 text-slate-100">BEC Integrated Solutions can help with design assistance, product selection, and discounted project bids.</p>
+                            <div class="mt-6 flex flex-wrap gap-3">
+                                <a href="#" class="rounded-full bg-white px-5 py-3 text-sm font-bold text-[var(--bec-navy)]">CONTACT US</a>
+                                <a href="#survey" class="rounded-full border border-white/25 px-5 py-3 text-sm font-bold text-white">Back to Survey</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const surveyQuestions = [
+            {
+                key: 'facilityType',
+                question: 'What type of facility are you planning for?',
+                helper: 'This helps us recommend the right system class.',
+                options: [
+                    { value: 'assisted-living', label: 'Assisted living or senior care', insight: 'A flexible wireless setup with easy expansion.', profile: 'Assisted living / senior care', priority: 'Expandability & support', system: 'MV200 Wireless Nurse Call Kits', scores: { a: 3, b: 1, c: 0 } },
+                    { value: 'nursing-home', label: 'Skilled nursing or nursing home', insight: 'A dependable system built for stronger coverage.', profile: 'Skilled nursing / long-term care', priority: 'Reliability & compliance', system: 'MV500 Wireless Nurse Call System', scores: { a: 2, b: 3, c: 0 } },
+                    { value: 'retrofit', label: 'Retrofit / existing building', insight: 'Minimal wiring and easier installation are ideal.', profile: 'Retrofit / existing building', priority: 'Simple installation', system: 'Wireless + desk console package', scores: { a: 3, b: 1, c: 1 } }
+                ]
+            },
+            {
+                key: 'coverage',
+                question: 'How much coverage do you need?',
+                helper: 'Choose the option closest to your project size.',
+                options: [
+                    { value: 'small', label: 'Small system up to 10 beds', insight: 'Ideal for compact wireless nurse call kits.', profile: 'Small system', priority: 'Low-cost deployment', system: 'MV200 Wireless Nurse Call Kits', scores: { a: 3, b: 1, c: 0 } },
+                    { value: 'mid', label: 'Mid-size facility wing', insight: 'A balanced system that scales as needed.', profile: 'Mid-size facility', priority: 'Balanced scaling', system: 'MV500 with consoles', scores: { a: 1, b: 3, c: 0 } },
+                    { value: 'large', label: 'Multi-wing or campus-wide', insight: 'Best for broader integration and zones.', profile: 'Large campus / integrated care', priority: 'Integration & scale', system: 'PC-based wireless platform', scores: { a: 0, b: 3, c: 3 } }
+                ]
+            },
+            {
+                key: 'priority',
+                question: 'What is your biggest priority?',
+                helper: 'We use this to shape the recommendation and talking points.',
+                options: [
+                    { value: 'cost', label: 'Lower upfront cost', insight: 'Wireless systems can reduce installation expenses.', profile: 'Budget-conscious buyer', priority: 'Lower installation cost', system: 'MV200 Wireless Nurse Call Kits', scores: { a: 3, b: 0, c: 0 } },
+                    { value: 'expand', label: 'Easy future expansion', insight: 'Modular wireless hardware makes growth easier.', profile: 'Growth-focused buyer', priority: 'Easy future expansion', system: 'MV500 modular solution', scores: { a: 2, b: 3, c: 0 } },
+                    { value: 'integrate', label: 'Integrate wander management', insight: 'A unified platform helps staff and patient safety.', profile: 'Integration-focused buyer', priority: 'Unified platform', system: 'PC-based / WanderGuard integration', scores: { a: 0, b: 2, c: 3 } }
+                ]
+            },
+            {
+                key: 'decision',
+                question: 'What best describes your purchase stage?',
+                helper: 'This helps us show the right next step.',
+                options: [
+                    { value: 'research', label: 'Researching options', insight: 'Review the comparison and gather specs.', profile: 'Early research', priority: 'Education first', system: 'Product comparison + spec sheets', scores: { a: 1, b: 1, c: 0 } },
+                    { value: 'quote', label: 'Ready for a quote', insight: 'You are close to a direct conversation.', profile: 'Quote ready', priority: 'Fast quote', system: 'Request answers or quote fast', scores: { a: 2, b: 2, c: 1 } },
+                    { value: 'bid', label: 'Need discounted project bids', insight: 'We will route you to contact/support.', profile: 'Project bid', priority: 'Design assistance', system: 'Contact BEC Integrated Solutions', scores: { a: 1, b: 2, c: 3 } }
+                ]
+            }
+        ];
+
+        const state = {
+            index: 0,
+            answers: {},
+            scores: { a: 0, b: 0, c: 0 },
+            recommendation: null
+        };
+
+        const sections = {
+            landing: document.getElementById('step-landing'),
+            survey: document.getElementById('survey'),
+            compare: document.getElementById('compare'),
+            results: document.getElementById('results')
+        };
+
+        function showSection(name) {
+            Object.values(sections).forEach((section) => section.classList.add('hidden'));
+            sections[name].classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderQuestion() {
+            const current = surveyQuestions[state.index];
+            const selected = state.answers[current.key]?.value;
+            document.getElementById('question-count').textContent = `Question ${state.index + 1} of ${surveyQuestions.length}`;
+            document.getElementById('progress-pill').textContent = `${Math.round(((state.index + 1) / surveyQuestions.length) * 100)}% Complete`;
+            document.getElementById('progress-fill').style.width = `${Math.round(((state.index + 1) / surveyQuestions.length) * 100)}%`;
+            document.getElementById('question-title').textContent = current.question;
+            document.getElementById('question-helper').textContent = current.helper;
+            document.getElementById('back-btn').disabled = state.index === 0;
+            document.getElementById('back-btn').classList.toggle('opacity-50', state.index === 0);
+
+            document.getElementById('next-btn').textContent = state.index === surveyQuestions.length - 1 ? 'See My Recommendation →' : 'Next Question →';
+
+            document.getElementById('options').innerHTML = current.options.map((option) => `
+                <button type="button" class="option ${selected === option.value ? 'is-selected' : ''} rounded-2xl p-4 text-left" onclick="chooseOption('${current.key}','${option.value}')">
+                    <p class="text-base font-bold text-[var(--bec-ink)]">${option.label}</p>
+                    <p class="mt-1 text-sm text-slate-500">${option.insight}</p>
+                </button>
+            `).join('');
+
+            updateProfilePreview();
+        }
+
+        function chooseOption(key, value) {
+            const current = surveyQuestions.find((item) => item.key === key);
+            const selected = current.options.find((option) => option.value === value);
+            state.answers[key] = selected;
+            state.scores = { a: 0, b: 0, c: 0 };
+            Object.values(state.answers).forEach((answer) => {
+                state.scores.a += answer.scores.a;
+                state.scores.b += answer.scores.b;
+                state.scores.c += answer.scores.c;
+            });
+            renderQuestion();
+        }
+
+        function updateProfilePreview() {
+            const current = surveyQuestions[state.index];
+            const active = state.answers[current.key] || current.options[0];
+            document.getElementById('profile-title').textContent = active.profile;
+            document.getElementById('profile-copy').textContent = active.insight;
+            document.getElementById('profile-facility').textContent = active.profile;
+            document.getElementById('profile-priority').textContent = active.priority;
+            document.getElementById('profile-system').textContent = active.system;
+        }
+
+        function computeRecommendation() {
+            const scoreEntries = [
+                { key: 'a', value: state.scores.a, label: 'Lower-install wireless fit' },
+                { key: 'b', value: state.scores.b, label: 'Balanced MV500-ready fit' },
+                { key: 'c', value: state.scores.c, label: 'Integrated PC-based fit' }
+            ].sort((left, right) => right.value - left.value);
+
+            const winner = scoreEntries[0].key;
+            const profileMap = {
+                a: {
+                    title: 'MV200 Wireless Nurse Call Kits',
+                    copy: 'Best aligned for smaller systems, retrofit projects, and buyers prioritizing lower upfront installation costs and easy deployment.',
+                    quote: 'Get Answers or a Quote - Fast'
+                },
+                b: {
+                    title: 'MV500 Wireless Nurse Call System',
+                    copy: 'Best for growing facilities that need flexibility, reliable communication, and an expandable nurse call platform.',
+                    quote: 'Request a Consultation or Quote'
+                },
+                c: {
+                    title: 'PC-Based Wireless Nurse Call Platform',
+                    copy: 'Best for larger facilities needing integration, wander management, and a unified communication platform.',
+                    quote: 'Speak with BEC for Design Assistance'
+                }
+            };
+
+            return { winner, ...profileMap[winner], scores: state.scores };
+        }
+
+        function proceed() {
+            if (!state.answers[surveyQuestions[state.index].key]) {
+                chooseOption(surveyQuestions[state.index].key, surveyQuestions[state.index].options[0].value);
+            }
+            if (state.index < surveyQuestions.length - 1) {
+                state.index += 1;
+                renderQuestion();
+                return;
+            }
+            state.recommendation = computeRecommendation();
+            localStorage.setItem('becRecommendation', JSON.stringify({ ...state.recommendation, answers: state.answers }));
+            showSection('results');
+            renderResults();
+        }
+
+        function goBack() {
+            if (state.index === 0) return;
+            state.index -= 1;
+            renderQuestion();
+        }
+
+        function renderResults() {
+            const rec = state.recommendation || computeRecommendation();
+            document.getElementById('result-title').textContent = rec.title;
+            document.getElementById('result-copy').textContent = rec.copy;
+            document.getElementById('quote-title').textContent = rec.quote;
+            document.getElementById('score-a').textContent = rec.scores.a;
+            document.getElementById('score-b').textContent = rec.scores.b;
+            document.getElementById('score-c').textContent = rec.scores.c;
+        }
+
+        document.getElementById('next-btn').addEventListener('click', proceed);
+        document.getElementById('back-btn').addEventListener('click', goBack);
+        document.getElementById('show-survey-btn').addEventListener('click', () => showSection('survey'));
+
+        document.getElementById('survey').addEventListener('click', (event) => {
+            const compareLink = event.target.closest('a');
+            if (compareLink && compareLink.getAttribute('href') === '#compare') {
+                showSection('compare');
+            }
+        });
+
+        const saved = localStorage.getItem('becRecommendation');
+        if (saved) {
+            try {
+                const rec = JSON.parse(saved);
+                state.recommendation = rec;
+                state.scores = rec.scores || state.scores;
+            } catch (_) {}
+        }
+
+        function initFromHash() {
+            const route = window.location.hash.replace('#', '').trim();
+            if (route && sections[route]) {
+                if (route === 'results' && state.recommendation) {
+                    renderResults();
+                }
+                showSection(route);
+                return;
+            }
+            showSection('landing');
+        }
+
+        renderQuestion();
+        initFromHash();
+    </script>
+</body>
+</html>
